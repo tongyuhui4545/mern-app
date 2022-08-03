@@ -21,7 +21,13 @@ router.get("/:pid", (req, res, next) => {
   const place = DUMMY_PLACES.find((p) => {
     return p.id === placeId;
   });
-  res.json({ place });
+  if (!place) {
+    res.status(404).json({
+      message: "Could not find such an id",
+    });
+  } else {
+    res.json({ place });
+  }
 });
 
 router.get("/user/:uid", (req, res, next) => {
