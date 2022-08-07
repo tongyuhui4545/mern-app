@@ -99,7 +99,7 @@ const updatePlaceById = async (req, res, next) => {
   if (!errors.isEmpty()) {
     console.log(errors);
     res.status(422);
-    throw new HttpError("invalid inputs, please check", 422);
+    return next(new HttpError("invalid inputs, please check", 422));
   }
 
   const { title, description } = req.body;
