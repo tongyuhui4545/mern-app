@@ -7,19 +7,19 @@ const getCoordsForAddress = require("../util/location");
 const Place = require("../models/place");
 const User = require("../models/user");
 
-let DUMMY_PLACES = [
-  {
-    id: "p1",
-    title: "Uniqlo Store",
-    description: "One of the best international apparel chain stores",
-    location: {
-      lat: 37.8112497,
-      lng: 144.8140554,
-    },
-    address: "269/321 Lonsdale St, Melbourne VIC 3000, Australia",
-    creator: "u1",
-  },
-];
+// let DUMMY_PLACES = [
+//   {
+//     id: "p1",
+//     title: "Uniqlo Store",
+//     description: "One of the best international apparel chain stores",
+//     location: {
+//       lat: 37.8112497,
+//       lng: 144.8140554,
+//     },
+//     address: "269/321 Lonsdale St, Melbourne VIC 3000, Australia",
+//     creator: "u1",
+//   },
+// ];
 
 const getPlaceById = async (req, res, next) => {
   const placeId = req.params.pid;
@@ -158,18 +158,29 @@ const deletePlace = async (req, res, next) => {
 
   let place;
   try {
-    place = await Place.findById(placeId);
+    place = await Place.findById(placeId).populate("creator");
   } catch (err) {
     const error = new HttpError("Something went wrong, could not delete", 500);
     return next(error);
   }
 
-  try {
-    await place.remove();
-  } catch (err) {
-    const error = new HttpError("SOmething went wrong, could not delete", 500);
+  if (!place) {
+    const error = new HttpError("Could not find place for this id");
     return next(error);
   }
+
+  try {
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await place.remove({session: sess});
+    place.creator.places.pull(place);
+    await place.creator.save({session: sess});
+    await sess.commitTransaction();
+  } catch (err) {
+    const error = new HttpError("Something went wrong, could not delete", 500);
+    return next(error);
+  }
+
   res.status(200).json({ message: "Deleted place." });
 };
 
