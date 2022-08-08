@@ -7,20 +7,6 @@ const getCoordsForAddress = require("../util/location");
 const Place = require("../models/place");
 const User = require("../models/user");
 
-// let DUMMY_PLACES = [
-//   {
-//     id: "p1",
-//     title: "Uniqlo Store",
-//     description: "One of the best international apparel chain stores",
-//     location: {
-//       lat: 37.8112497,
-//       lng: 144.8140554,
-//     },
-//     address: "269/321 Lonsdale St, Melbourne VIC 3000, Australia",
-//     creator: "u1",
-//   },
-// ];
-
 const getPlaceById = async (req, res, next) => {
   const placeId = req.params.pid;
 
