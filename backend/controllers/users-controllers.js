@@ -48,7 +48,8 @@ const signup = async (req, res, next) => {
   const createdUser = new User({
     name,
     email,
-    image: "https://i.pinimg.com/564x/96/63/25/966325302b56965550ec6a66d27f3a7b.jpg",
+    image:
+      "https://i.pinimg.com/564x/96/63/25/966325302b56965550ec6a66d27f3a7b.jpg",
     password,
     places: [],
   });
@@ -87,7 +88,10 @@ const login = async (req, res, next) => {
     return next(error);
   }
 
-  res.json({ message: "Logged in!" });
+  res.json({
+    message: "Logged in!",
+    user: existingUser.toObject({ getters: true }),
+  });
 };
 
 exports.getUsers = getUsers;
