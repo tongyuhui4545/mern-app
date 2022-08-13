@@ -1,25 +1,24 @@
-import React, { useState, useCallback } from "react";
-import logo from "./logo.svg";
+import React, { useState, useCallback } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Redirect,
-  Switch,
-} from "react-router-dom";
+  Switch
+} from 'react-router-dom';
 
-import Users from "./user/pages/Users";
-import NewPlace from "./places/pages/NewPlace";
-import UserPlaces from "./places/pages/UserPlaces";
-import UpdatePlace from "./places/pages/UpdatePlace";
-import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import Auth from "./user/pages/Auth";
-import { AuthContext } from "./shared/context/auth-context";
+import Users from './user/pages/Users';
+import NewPlace from './places/pages/NewPlace';
+import UserPlaces from './places/pages/UserPlaces';
+import UpdatePlace from './places/pages/UpdatePlace';
+import Auth from './user/pages/Auth';
+import MainNavigation from './shared/components/Navigation/MainNavigation';
+import { AuthContext } from './shared/context/auth-context';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userId, setUserId] = useState(false);
 
-  const login = useCallback((uid) => {
+  const login = useCallback(uid => {
     setIsLoggedIn(true);
     setUserId(uid);
   }, []);
@@ -72,14 +71,12 @@ const App = () => {
         isLoggedIn: isLoggedIn,
         userId: userId,
         login: login,
-        logout: logout,
+        logout: logout
       }}
     >
       <Router>
         <MainNavigation />
-        <main>
-          <Switch>{routes}</Switch>
-        </main>
+        <main>{routes}</main>
       </Router>
     </AuthContext.Provider>
   );
