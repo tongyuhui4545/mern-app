@@ -9,21 +9,21 @@ export const useHttpClient = () => {
   const sendRequest = useCallback(
     async (url, method = "GET", body = null, headers = {}) => {
       setIsloading(true);
-      const httpAbortCtrl = new AbortController();
-      activeHttpRequests.current.push(httpAbortCtrl);
+    //   const httpAbortCtrl = new AbortController();
+    //   activeHttpRequests.current.push(httpAbortCtrl);
       try {
         const response = await fetch(url, {
           method,
           body,
           headers,
-          signal: httpAbortCtrl.signal,
+        //   signal: httpAbortCtrl.signal,
         });
 
         const responseData = await response.json();
 
-        activeHttpRequests.current = activeHttpRequests.current.filter(
-          (reqCtrl) => reqCtrl !== httpAbortCtrl
-        );
+        // // activeHttpRequests.current = activeHttpRequests.current.filter(
+        // //   (reqCtrl) => reqCtrl !== httpAbortCtrl
+        // );
 
         if (!response.ok) {
           throw new Error(responseData.message);
