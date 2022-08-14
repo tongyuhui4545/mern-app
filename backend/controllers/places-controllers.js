@@ -79,7 +79,7 @@ const createPlace = async (req, res, next) => {
     address,
     location: coordinates,
     image:
-      'https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Empire_State_Building_%28aerial_view%29.jpg/400px-Empire_State_Building_%28aerial_view%29.jpg', // => File Upload module, will be replaced with real image url
+      'https://www.shoppingcentrenews.com.au/wp-content/uploads/2022/02/Melbourne-Central-5.jpg', // => File Upload module, will be replaced with real image url
     creator
   });
 
