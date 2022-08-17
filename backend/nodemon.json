@@ -1,0 +1,9 @@
+{
+    "env": {
+        "DB_USER": "FatSam",
+        "DB_PASSWORD": "HuPynFYQZGKwj9cb",
+        "DB_NAME": "mern-prod",
+        "GOOGLE_API_KEY": "AIzaSyDcjlRtT5elv7lNAaXW1kzY5vZTyTKpxIY",
+        "JWT_KEY": "Shooting"
+    }
+}
